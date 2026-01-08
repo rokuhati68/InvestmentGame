@@ -10,10 +10,8 @@ public class PlayerStatusApplier : MonoBehaviour
         var s = GameState.Instance.stats;
 
         health.SetMaxHp(s.maxHp);
-        health.SetHp(s.hp);
 
-        combat.SetAttack(s.attack);
-        combat.SetDirections(s.fireDirections);
-        combat.SetCooldown(s.cooldown);
+        combat.SetAttack(s.Atk);
+        combat.SetCooldown(s.CoolDown);
     }
 }

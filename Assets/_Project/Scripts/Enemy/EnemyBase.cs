@@ -13,4 +13,8 @@ public class EnemyBase : MonoBehaviour
     {
         
     }
+    public void TakeDamage(int damage)
+    {
+        return;
+    }
 }
