@@ -38,12 +38,15 @@ public class Bullet : MonoBehaviour
         rb.linearVelocity = direction.normalized * speed;
     }
 
-    private void OnTriggerEnter2D(EnemyBase enemy)
+    private void OnTriggerEnter2D(Collision2D collision)
     {
         // Enemy側に "IDamageable" を実装する想定（後で作る）
-        
-        enemy.TakeDamage(Damage);
-        Destroy(gameObject);
+        Debug.Log("Bullet Hit");
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            EnemyBase enemy = collision.gameObject.GetComponent<EnemyBase>();
+            enemy.TakeDamage(Damage);
+        }
         
     }
 }

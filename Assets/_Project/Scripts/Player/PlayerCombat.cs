@@ -9,7 +9,7 @@ public class PlayerCombat:MonoBehaviour
 
     [Header("Stats")]
     private int _Atk;
-    private float _CoolDown = 0.1f;
+    private float _CoolDown = 1f;
     
     [Header("Fire Pattern")]
     [Tooltip("4方向固定（上/右/下/左）。後で8/16へ拡張する前提。")]
