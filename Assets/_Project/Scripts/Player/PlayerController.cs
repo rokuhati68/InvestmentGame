@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 /// <summary>
 /// アニメーション８話 4:30
 /// </summary>
@@ -9,6 +10,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rigidbody2d;
     Animator animator;
     float moveSpeed = 5;
+
+    [SerializeField] GameSceneDirector sceneDirector;
+    [SerializeField] Slider sliderHP;
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
@@ -17,6 +21,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         movePlayer();
+        moveCamera();
     }
 
     void movePlayer()
@@ -47,6 +52,60 @@ public class PlayerController : MonoBehaviour
         if(Vector2.zero == dir)return;
         rigidbody2d.position += dir.normalized * moveSpeed * Time.deltaTime;
         ///animator.SetTrigger(trigger);
+        if(rigidbody2d.position.x < sceneDirector.WorldStart.x)
+        {
+            Vector2 pos = rigidbody2d.position;
+            pos.x =sceneDirector.WorldStart.x;
+            rigidbody2d.position = pos;
+        }
+        if(rigidbody2d.position.y < sceneDirector.WorldStart.y)
+        {
+            Vector2 pos = rigidbody2d.position;
+            pos.y =sceneDirector.WorldStart.y;
+            rigidbody2d.position = pos;
+        }
+        if(rigidbody2d.position.x > sceneDirector.WorldEnd.x)
+        {
+            Vector2 pos = rigidbody2d.position;
+            pos.x =sceneDirector.WorldEnd.x;
+            rigidbody2d.position = pos;
+        }
+        if(rigidbody2d.position.y > sceneDirector.WorldEnd.y)
+        {
+            Vector2 pos = rigidbody2d.position;
+            pos.y =sceneDirector.WorldEnd.y;
+            rigidbody2d.position = pos;
+        }
     }
 
+    void moveCamera()
+    {
+        Vector3 pos = transform.position;
+        pos.z = Camera.main.transform.position.z;
+        if(pos.x < sceneDirector.TileMapStart.x)
+        {
+            pos.x = sceneDirector.TileMapStart.x;
+        }
+        if(pos.y < sceneDirector.TileMapStart.y)
+        {
+            pos.y = sceneDirector.TileMapStart.y;
+        }
+        if(pos.x > sceneDirector.TileMapEnd.x)
+        {
+            pos.x = sceneDirector.TileMapEnd.x;
+        }
+        if(pos.y > sceneDirector.TileMapEnd.y)
+        {
+            pos.y = sceneDirector.TileMapEnd.y;
+        }
+        Camera.main.transform.position = pos;
+
+    }
+
+    void moveSlidderHP()
+    {
+        Vector3 pos = RectTransformUtility.WorldToScreenPoint(Camera.main,transform.position);
+        pos.y -= 50;
+        sliderHP.transform.position = pos;
+    }
 }
