@@ -1,0 +1,107 @@
+using UnityEngine;
+
+public enum BonusType
+{
+    Bonus,
+    Boost,
+}
+
+public enum StatsType
+{
+    Attack,
+    Defense,
+    MoveSpeed,
+    HP,
+    MaxHp,
+    PickUpRange,
+    AliveTime,
+    
+    SpawnCount,
+    SpawnTimerMin,
+    SpawnTimrMax,
+}
+[Serializable]
+public class BonusStats
+{
+    public BonusType Type;
+    public StatsType Key;
+    public float value;
+}
+public class BaseStats
+{
+    public string Title;
+    public int Id;
+    public int Lv;
+    public string Name;
+    [TextArea] public string Description;
+    public float Attack;
+    public float Defense;
+    public float HP;
+    public float MaxHP;
+    public float XP;
+    public float MaxXP;
+    public float MoveSpeed;
+    public float PickUpRange;
+    public float AliveTime;
+
+    //インデクサ機能
+    public float this[StatsType key]
+    {
+        get
+        {
+            if(key == StatsType.Attack) return Attack;
+            else if(key == StatsType.Defense) return Defense;
+            else if(key == StatsType.MoveSpeed) return MoveSpeed;
+            else if(key == StatsType.HP) return HP;
+            else if(key == StatsType.MaxHP) return MaxHP;
+            else if(key == StatsType.XP) return XP;
+            else if(key == StatsType.MaxXP) return MaxXP;
+            else if(key == StatsType.PickUpRange) return PickUpRange;
+            else if(key == StatsType.Alivetime) return Alivetime;
+            else return 0;
+        }
+        set
+        {
+            if(key == StatsType.Attack) return value;
+            else if(key == StatsType.Defense) return value;
+            else if(key == StatsType.MoveSpeed) return value;
+            else if(key == StatsType.HP) return value;
+            else if(key == StatsType.MaxHP) return value;
+            else if(key == StatsType.XP) return value;
+            else if(key == StatsType.MaxXP) return value;
+            else if(key == StatsType.PickUpRange) return value;
+            else if(key == StatsType.Alivetime) return value;
+        }
+    }
+
+    //ボーナス定義
+    protected float applyBonus(float currentValue,float value, BonusType type)
+    {
+        if(BonusType.Bonus == type)
+        {
+            return currentValue * value;
+        }
+        else if(BonusType.Boost == type)
+        {
+            return currentValue * (1 + value);
+        }
+        return currentValue;
+    }
+    protected void addBonus(BonusStats bonus)
+    {
+        float value = applyBonus(this[bonus.Key],bonus.Value,bonus.Type);
+        if(StatsType.HP == bonus.Key)
+        {
+            value = Mathf.Clamp(value , 0 , MAxHP);
+        }
+        else if(StatsType.XP == bonus.Key)
+        {
+            value = MAthf.Clamp(value,0,MaxXP);
+        }
+        this[bonus.Key] = value;
+    }
+    public BaseStats GetCopy()
+    {
+        return (BaseStats)MemberwiseClone();
+    }
+}
