@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System;
 public enum BonusType
 {
     Bonus,
@@ -12,7 +12,9 @@ public enum StatsType
     Defense,
     MoveSpeed,
     HP,
-    MaxHp,
+    MaxHP,
+    XP,
+    MaxXP,
     PickUpRange,
     AliveTime,
     
@@ -25,7 +27,7 @@ public class BonusStats
 {
     public BonusType Type;
     public StatsType Key;
-    public float value;
+    public float Value;
 }
 public class BaseStats
 {
@@ -57,20 +59,20 @@ public class BaseStats
             else if(key == StatsType.XP) return XP;
             else if(key == StatsType.MaxXP) return MaxXP;
             else if(key == StatsType.PickUpRange) return PickUpRange;
-            else if(key == StatsType.Alivetime) return Alivetime;
+            else if(key == StatsType.AliveTime) return AliveTime;
             else return 0;
         }
         set
         {
-            if(key == StatsType.Attack) return value;
-            else if(key == StatsType.Defense) return value;
-            else if(key == StatsType.MoveSpeed) return value;
-            else if(key == StatsType.HP) return value;
-            else if(key == StatsType.MaxHP) return value;
-            else if(key == StatsType.XP) return value;
-            else if(key == StatsType.MaxXP) return value;
-            else if(key == StatsType.PickUpRange) return value;
-            else if(key == StatsType.Alivetime) return value;
+            if(key == StatsType.Attack) Attack = value;
+            else if(key == StatsType.Defense) Defense =  value;
+            else if(key == StatsType.MoveSpeed) MoveSpeed =  value;
+            else if(key == StatsType.HP) HP =  value;
+            else if(key == StatsType.MaxHP) MaxHP = value;
+            else if(key == StatsType.XP) XP = value;
+            else if(key == StatsType.MaxXP) MaxXP = value;
+            else if(key == StatsType.PickUpRange) PickUpRange =  value;
+            else if(key == StatsType.AliveTime) AliveTime =  value;
         }
     }
 
@@ -92,11 +94,11 @@ public class BaseStats
         float value = applyBonus(this[bonus.Key],bonus.Value,bonus.Type);
         if(StatsType.HP == bonus.Key)
         {
-            value = Mathf.Clamp(value , 0 , MAxHP);
+            value = Mathf.Clamp(value , 0 , MaxHP);
         }
         else if(StatsType.XP == bonus.Key)
         {
-            value = MAthf.Clamp(value,0,MaxXP);
+            value = Mathf.Clamp(value,0,MaxXP);
         }
         this[bonus.Key] = value;
     }
