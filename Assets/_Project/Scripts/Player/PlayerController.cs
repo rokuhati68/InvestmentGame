@@ -1,66 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
-[RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMouseMover : MonoBehaviour
+/// <summary>
+/// アニメーション８話 4:30
+/// </summary>
+public class PlayerController : MonoBehaviour
 {
-    [Header("追従")]
-    public bool instant = true;
-    public float moveSpeed = 10f;
-
-    [Header("画面内に制限")]
-    public bool clampToCamera = true;
-
-    [System.Serializable]
-    public class CameraBounds
+    Rigidbody2D rigidbody2d;
+    Animator animator;
+    float moveSpeed = 5;
+    void Start()
     {
-        public float xMin, xMax, yMin, yMax;
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        ///animator = GetComponent<Animator>();
     }
-    [SerializeField] CameraBounds bounds;
-
-    Rigidbody2D rb;
-    Camera cam;
-    Vector3 targetWorld;
-
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        cam = Camera.main;
-
-        rb.bodyType = RigidbodyType2D.Kinematic;
-        rb.gravityScale = 0f;
-        rb.freezeRotation = true;
-    }
-
     void Update()
     {
-        targetWorld = cam.ScreenToWorldPoint(Input.mousePosition);
-        targetWorld.z = 0f;
-
-        if (clampToCamera)
-            targetWorld = ClampToCamera(targetWorld);
+        movePlayer();
     }
 
-    void FixedUpdate()
+    void movePlayer()
     {
-        if (instant)
+        Vector2 dir = Vector2.zero;
+        string trigger = "";
+
+        if(Input.GetKey(KeyCode.UpArrow))
         {
-            rb.MovePosition(targetWorld);
+            dir += Vector2.up;
+            trigger = "isUp";
         }
-        else
+        if(Input.GetKey(KeyCode.DownArrow))
         {
-            Vector2 next = Vector2.MoveTowards(
-                rb.position,
-                targetWorld,
-                moveSpeed * Time.fixedDeltaTime
-            );
-            rb.MovePosition(next);
+            dir -= Vector2.up;
+            trigger = "isDown";
         }
+        if(Input.GetKey(KeyCode.RightArrow))
+        {
+            dir += Vector2.right;
+            trigger = "isRight";
+        }
+        if(Input.GetKey(KeyCode.LeftArrow))
+        {
+            dir -= Vector2.right;
+            trigger = "isLeft";
+        }
+        if(Vector2.zero == dir)return;
+        rigidbody2d.position += dir.normalized * moveSpeed * Time.deltaTime;
+        ///animator.SetTrigger(trigger);
     }
 
-    Vector3 ClampToCamera(Vector3 pos)
-    {
-        pos.x = Mathf.Clamp(pos.x, bounds.xMin, bounds.xMax);
-        pos.y = Mathf.Clamp(pos.y, bounds.yMin, bounds.yMax);
-        return pos;
-    }
 }
