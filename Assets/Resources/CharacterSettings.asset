@@ -12,4 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbfb5805d2d71fd4cb41e65e81c2898f, type: 3}
   m_Name: CharacterSettings
   m_EditorClassIdentifier: 
-  datas: []
+  datas:
+  - Title: "\u6728"
+    Id: 100
+    Lv: 0
+    Name: tree
+    Description: 
+    Attack: 5
+    Defense: 0
+    HP: 10
+    MaxHP: 10
+    XP: 0.1
+    MaxXP: 0.5
+    MoveSpeed: 0.5
+    PickUpRange: 0
+    AliveTime: 0
+    Prefab: {fileID: 0}
+    DefaultWeaponIds: 
+    UsableWeaponIds: 
+    UsableWeaponMax: 0
+    MoveType: 0

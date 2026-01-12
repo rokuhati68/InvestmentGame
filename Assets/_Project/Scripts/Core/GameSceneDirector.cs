@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 public class GameSceneDirector : MonoBehaviour
 {
     [SerializeField] GameObject grid;
@@ -13,9 +14,17 @@ public class GameSceneDirector : MonoBehaviour
     public Vector2 WorldEnd;
 
     public PlayerController Player;
+
+    [SerializeField] Transform parentTextDamage;
+    [SerializeField] GameObject prefabTextDamage;
+
+    [SerializeField] Text textTimer;
+    public float GameTimer;
+    public float OldSeconds;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        OldSeconds -= 1;
         foreach(Transform item in grid.GetComponentInChildren<Transform>())
         {
             //開始位置
@@ -47,6 +56,21 @@ public class GameSceneDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        updateGameTimer();
+    }
+
+    public void DispDamage(GameObject target, float damage)
+    {
+        GameObject obj = Instantiate(prefabTextDamage, parentTextDamage);
+        obj.GetComponent<TextDamageController>().Init(target,damage);
+    }
+    void updateGameTimer()
+    {
+        GameTimer += Time.deltaTime;
+        int seconds = (int)GameTimer % 60;
+        if(seconds == OldSeconds) return;
+
+        textTimer.text = Utils.GetTextTimer(GameTimer);
+        OldSeconds = seconds;
     }
 }
