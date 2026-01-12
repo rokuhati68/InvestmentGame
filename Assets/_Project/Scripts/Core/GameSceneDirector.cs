@@ -21,10 +21,20 @@ public class GameSceneDirector : MonoBehaviour
     [SerializeField] Text textTimer;
     public float GameTimer;
     public float OldSeconds;
+
+    [SerializeField] EnemySpawnerController enemySpawner;
+
+    [SerializeField] Slider sliderXP;
+    [SerializeField] Slider sliderHP;
+    [SerializeField] Text textLv;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        int playerId = 0;
+        Player = CharacterSettings.Instance.CreatePlayer(playerId, this, enemySpawner, textLv,sliderHP,sliderXP);
         OldSeconds -= 1;
+        enemySpawner.Init(this,tilemapCollider);
         foreach(Transform item in grid.GetComponentInChildren<Transform>())
         {
             //開始位置

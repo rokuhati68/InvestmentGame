@@ -13,6 +13,25 @@ MonoBehaviour:
   m_Name: CharacterSettings
   m_EditorClassIdentifier: 
   datas:
+  - Title: "\u30D7\u30EC\u30A4\u30E4\u30FC"
+    Id: 0
+    Lv: 1
+    Name: player
+    Description: 
+    Attack: 5
+    Defense: 1
+    HP: 100
+    MaxHP: 100
+    XP: 0
+    MaxXP: 10
+    MoveSpeed: 3
+    PickUpRange: 0.5
+    AliveTime: 0
+    Prefab: {fileID: 8539615851316279997, guid: 8377bf45a783d5c488392f265962fadc, type: 3}
+    DefaultWeaponIds: 00000000
+    UsableWeaponIds: 000000000100000002000000030000000400000005000000060000000700000008000000
+    UsableWeaponMax: 6
+    MoveType: 0
   - Title: "\u6728"
     Id: 100
     Lv: 0
@@ -27,8 +46,84 @@ MonoBehaviour:
     MoveSpeed: 0.5
     PickUpRange: 0
     AliveTime: 0
-    Prefab: {fileID: 0}
+    Prefab: {fileID: 2627673619811613257, guid: 85e4e0fa64663154ebfddd31cadf1fb6, type: 3}
     DefaultWeaponIds: 
     UsableWeaponIds: 
     UsableWeaponMax: 0
     MoveType: 0
+  - Title: ball
+    Id: 101
+    Lv: 0
+    Name: ball
+    Description: 
+    Attack: 5
+    Defense: 0
+    HP: 10
+    MaxHP: 10
+    XP: 0.1
+    MaxXP: 0.5
+    MoveSpeed: 0.5
+    PickUpRange: 0
+    AliveTime: 0
+    Prefab: {fileID: 6002665396268736073, guid: b3c771c0ee61d2d4199e15c997d4bbbe, type: 3}
+    DefaultWeaponIds: 
+    UsableWeaponIds: 
+    UsableWeaponMax: 0
+    MoveType: 0
+  - Title: log
+    Id: 200
+    Lv: 0
+    Name: log
+    Description: 
+    Attack: 5
+    Defense: 0
+    HP: 10
+    MaxHP: 10
+    XP: 0.1
+    MaxXP: 0.5
+    MoveSpeed: 0.5
+    PickUpRange: 0
+    AliveTime: 0
+    Prefab: {fileID: 7893329449988581920, guid: 89f000b64f5199a409d512f65125956e, type: 3}
+    DefaultWeaponIds: 
+    UsableWeaponIds: 
+    UsableWeaponMax: 0
+    MoveType: 0
+  - Title: Barell
+    Id: 500
+    Lv: 0
+    Name: Barell
+    Description: 
+    Attack: 5
+    Defense: 0
+    HP: 10
+    MaxHP: 10
+    XP: 0.1
+    MaxXP: 0.5
+    MoveSpeed: 0.5
+    PickUpRange: 0
+    AliveTime: 0
+    Prefab: {fileID: 3363275553537371509, guid: 72c196002234e4b40b18d49c1b048c4a, type: 3}
+    DefaultWeaponIds: 
+    UsableWeaponIds: 
+    UsableWeaponMax: 0
+    MoveType: 0
+  - Title: Stump
+    Id: 600
+    Lv: 0
+    Name: Stump
+    Description: 
+    Attack: 5
+    Defense: 0
+    HP: 10
+    MaxHP: 10
+    XP: 0.1
+    MaxXP: 0.5
+    MoveSpeed: 0.5
+    PickUpRange: 0
+    AliveTime: 0
+    Prefab: {fileID: 8225482009754750564, guid: 7029babd99a72e449a4d5e4f2281fff8, type: 3}
+    DefaultWeaponIds: 
+    UsableWeaponIds: 
+    UsableWeaponMax: 0
+    MoveType: 1

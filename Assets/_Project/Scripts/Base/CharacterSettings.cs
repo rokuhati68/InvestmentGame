@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
-
+using UnityEngine.UI;
 [CreateAssetMenu(fileName = "CharacterSettings", menuName = "ScriptableObjects/CharacterSettings")]
 public class CharacterSettings : ScriptableObject
 {
@@ -30,6 +30,17 @@ public class CharacterSettings : ScriptableObject
         GameObject obj = Instantiate(stats.Prefab, position,Quaternion.identity);
         EnemyController ctrl = obj.GetComponent<EnemyController>();
         ctrl.Init(sceneDirector, stats);
+        return ctrl;
+    }
+
+    //プレイヤー生成
+    public PlayerController CreatePlayer(int id,GameSceneDirector sceneDirector,
+        EnemySpawnerController enemySpawner, Text textLv, Slider sliderHP, Slider sliderXP)
+    {
+        CharacterStats stats = Instance.Get(id);
+        GameObject obj = Instantiate(stats.Prefab,Vector3.zero, Quaternion.identity);
+        PlayerController ctrl = obj.GetComponent<PlayerController>();
+        ctrl.Init(sceneDirector, enemySpawner, stats, textLv,sliderHP, sliderXP);
         return ctrl;
     }
     

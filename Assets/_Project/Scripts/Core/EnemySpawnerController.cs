@@ -17,11 +17,12 @@ public class EnemySpawnData
     public int ElapsedSeconds;
     public SpawnType SpawnType;
     public float SpawnDuration;
-    public List<int> EnemyIds;
     public int SpawnCountMax;
+    public List<int> EnemyIds;
+    
 
 }
-public class EnemySwapwner : MonoBehaviour
+public class EnemySpawnerController : MonoBehaviour
 {
     //敵データ
     [SerializeField] List<EnemySpawnData> enemySpawnDatas;

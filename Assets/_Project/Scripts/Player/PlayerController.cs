@@ -17,6 +17,11 @@ public class PlayerController : MonoBehaviour
     public CharacterStats Stats;
     float attackCoolDownTimer;
     float attackCoolDownTimerMax = 0.5f;
+
+    List<int> levelRequirements;
+    EnemySpawnerController enemySpawner;
+    public Vector2 Forward;
+    Text textLevel;
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
@@ -27,6 +32,50 @@ public class PlayerController : MonoBehaviour
         movePlayer();
         moveCamera();
         updateTimer();
+        moveSliderHP();
+    }
+
+    public void Init(GameSceneDirector sceneDirector, EnemySpawnerController enemySpawner,
+        CharacterStats characterStats, Text textLevel, Slider sliderHP, Slider sliderXP)
+    {
+        levelRequirements = new List<int>();
+        this.sceneDirector = sceneDirector;
+        this.enemySpawner = enemySpawner;
+        this.Stats = characterStats;
+        this.textLevel = textLevel;
+        this.sliderHP = sliderHP;
+        this.sliderXP = sliderXP;
+
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
+        Forward = Vector2.right;
+
+        levelRequirements.Add(0);
+        for(int i = 1; i < 1000; i++)
+        {
+            int prevxp = levelRequirements[i - 1];
+            int addxp = 16;
+            levelRequirements.Add(prevxp + addxp);
+            if(i == 1)
+            {
+                addxp = 5;
+            }
+            else if(20 >= i)
+            {
+                addxp = 10;
+            }
+            else if(40 >= i)
+            {
+                addxp = 13;
+            }
+            levelRequirements.Add(prevxp + addxp);
+        }
+        Stats.MaxXP = levelRequirements[1];
+
+        setTextLv();
+        setSliderHP();
+        setSliderXP();
         moveSliderHP();
     }
 
@@ -56,7 +105,7 @@ public class PlayerController : MonoBehaviour
             trigger = "isLeft";
         }
         if(Vector2.zero == dir)return;
-        rigidbody2d.position += dir.normalized * moveSpeed * Time.deltaTime;
+        rigidbody2d.position += dir.normalized * Stats.MoveSpeed * Time.deltaTime;
         ///animator.SetTrigger(trigger);
         if(rigidbody2d.position.x < sceneDirector.WorldStart.x)
         {
@@ -136,7 +185,7 @@ public class PlayerController : MonoBehaviour
         sliderHP.maxValue = Stats.MaxHP;
         sliderHP.value = Stats.HP;
     }
-    void setSlideXP()
+    void setSliderXP()
     {
         sliderHP.maxValue = Stats.MaxXP;
         sliderHP.value = Stats.XP;
@@ -168,5 +217,10 @@ public class PlayerController : MonoBehaviour
         {
             attackCoolDownTimer -= Time.deltaTime;
         }
+    }
+
+    void setTextLv()
+    {
+        textLevel.text = "LV" + Stats.Lv;
     }
 }
